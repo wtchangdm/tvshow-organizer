@@ -22,7 +22,7 @@ async function startConverting() {
 
   async function monitorAndEnqueue(folderPath) {
     function changeHandler(eventType, filename) {
-      if (filename.endsWith(UNFINISHED_FILE_EXT)) return;
+      if (!filename || filename.endsWith(UNFINISHED_FILE_EXT)) return;
       console.log(`Event ${eventType} detected: ${filename}.`);
       enqueue(`${folderPath}/${filename}`);
     }
