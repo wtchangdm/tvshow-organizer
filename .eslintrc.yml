@@ -1,16 +1,31 @@
-env:
-  es6: true
-  node: true
-extends: 'eslint:recommended'
-parserOptions:
-  ecmaVersion: 2018
+extends:
+  - airbnb-base
 rules:
-  indent:
+  array-bracket-spacing:
     - error
-    - 2
-  linebreak-style:
+    - always
+  arrow-parens:
     - error
-    - windows
+    - as-needed
+    - requireForBlockBody: false
+  comma-dangle:
+    - error
+    - never
+  eol-last:
+    - error
+    - always
+  func-names:
+    - error
+    - never
+  no-multiple-empty-lines:
+    - error
+    - max: 2
+      maxBOF: 0
+      maxEOF: 1
+  no-param-reassign:
+    - error
+    - props: false
+  no-console: off
   quotes:
     - error
     - double

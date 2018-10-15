@@ -2,12 +2,12 @@ const Promise = require("bluebird");
 const fs = Promise.promisifyAll(require("fs"));
 const ffmpeg = require("./lib/ffmpeg");
 const config = require("./lib/config");
-let convertingQueue = Promise.resolve();
 
+let convertingQueue = Promise.resolve();
 const UNFINISHED_FILE_EXT = "!qB";
 
-async function startConverting () {
-  async function enqueue (filepath) {
+async function startConverting() {
+  async function enqueue(filepath) {
     try {
       await fs.statAsync(filepath);
       console.log(`Enqueueing ${filepath}...`);
@@ -18,12 +18,9 @@ async function startConverting () {
       console.log(`File ${filepath} has been deleted.`);
     }
     // Specifically avoid to wait promise to finished.
-    return;
   }
 
-  
-  async function monitorAndEnqueue (folderPath) {
-
+  async function monitorAndEnqueue(folderPath) {
     function changeHandler(eventType, filename) {
       if (filename.endsWith(UNFINISHED_FILE_EXT)) return;
       console.log(`Event ${eventType} detected: ${filename}.`);
@@ -34,7 +31,6 @@ async function startConverting () {
       .call("filter", filename => !filename.endsWith(UNFINISHED_FILE_EXT))
       .map(filename => enqueue(`${folderPath}/${filename}`));
     fs.watch(folderPath, changeHandler);
-    return;
   }
 
   await ffmpeg.init();

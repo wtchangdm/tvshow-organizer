@@ -61,7 +61,7 @@ typings/
 .next
 
 # bin
-lib/bin
+bin
 
 # .vscode
 .vscode
